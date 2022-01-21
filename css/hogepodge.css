@@ -38,3 +38,7 @@
 .job-description {
     margin-bottom: 1.5rem;
 }
+
+a {
+    text-decoration: none;
+}
