@@ -1,38 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
 
-  <!-- Basic Page Needs–––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>hogepodge</title>
-  <meta name="description" content="The personal page for Chris Hoge">
-  <meta name="author" content="Chris Hoge">
-
-  <!-- Mobile Specific Metas ––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT ––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS ––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/hogepodge.css">
-
-  <!-- Favicon ––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4F5C1480ZG"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-4F5C1480ZG');
-  </script>
-</head>
-<body>
+{% block content %}
   <!-- Primary Page Layout ––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
@@ -51,7 +19,7 @@
             infrastructure and AI communities, with a focus on:
             <ul>
                 <li>
-                    <a href="https://www.hogepodge.com/samples.html">Developing content to support the developer
+                    <a href="/samples/">Developing content to support the developer
                     experience, from beginner to expert</a>.
                  </li>
                 <li>
@@ -67,7 +35,7 @@
       </div>
     </div>
 
-    <!-- Modular ––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- NVIDIA ––––––––––––––––––––––––––––––––––––––––––––– -->
     <div class="row">
       <div class="twelve columns" >
         <div class="company-title">NVIDIA</div>
@@ -342,7 +310,7 @@
                 interoperability standard guidelines. Administered the technical aspects of the OpenStack Powered
                 program and served as Project Technical Lead (PTL) for the RefStack project, an interoperability
                 test-harness and reporting tool.
-            </p> 
+            </p>
             <p>
                 Technical lead on the launch of the OpenStack Certified Administrator exam. Drawing from questions
                 written by a community panel, edited the exam for consistency of content and voice, worked with
@@ -372,12 +340,11 @@
               management, and project guidance, including developing shared tools and libraries to reduce code
               duplication in the puppet-openstack modules. Advocated for creating a new track at the OpenStack summits
               to give open source projects adjacent to the OpenStack community collaboration and development space.
-              Supported the marketing team in promoting Puppet at industry events. 
+              Supported the marketing team in promoting Puppet at industry events.
           </p>
         </div>
       </div>
     </div>
-
 
     <!-- UNIVERSITY OF OREGON ––––––––––––––––––––––––––––––––––––––––––––– -->
     <div class="row">
@@ -447,7 +414,7 @@
         <div class="company-title">University of Oregon</div>
       </div>
     </div>
-    <div class="row>">
+    <div class="row">
       <div class="four columns" >
         <div class="job-title">Research Programmer, Neuroinformatics Center</div>
         <div class="date-range">May 2005 - May 2007</div>
@@ -546,7 +513,6 @@
       </div>
     </div>
 
-
     <!-- WASHU ––––––––––––––––––––––––––––––––––––––––––––– -->
     <div class="row">
       <div class="twelve columns" >
@@ -568,6 +534,4 @@
     </div>
   </div>
   <!-- End Document –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
-
-</html>
+{% endblock %}

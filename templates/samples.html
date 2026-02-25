@@ -1,39 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends "base.html" %}
 
-    <!-- Basic Page Needs–––––––––––––––––––––––––– -->
-    <meta charset="utf-8">
-    <title>hogepodge - portfolio</title>
-    <meta name="description" content="Writing and Presentation Portfolio for Chris Hoge">
-    <meta name="author" content="Chris Hoge">
+{% block title %}hogepodge - portfolio{% endblock %}
+{% block description %}Writing and Presentation Portfolio for Chris Hoge{% endblock %}
 
-    <!-- Mobile Specific Metas ––––––––––––––––––––––– -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- FONT ––––––––––––––––––––––––– -->
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-    <!-- CSS ––––––––––––––––––––––– -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/skeleton.css">
-    <link rel="stylesheet" href="css/hogepodge.css">
-
-    <!-- Favicon ––––––––––––––––––––––––––––––––––––––– -->
-    <link rel="icon" type="image/png" href="images/favicon.png">
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4F5C1480ZG"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-4F5C1480ZG');
-    </script>
-
-</head>
-<body>
+{% block content %}
   <!-- Primary Page Layout ––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
     <div class="row">
@@ -67,7 +37,6 @@
       </div>
     </div>
 
-
         <div class="row">
             <div class="twelve columns" >
                 <div class="company-title">Work Samples</div>
@@ -94,22 +63,20 @@
                             <a href="https://www.modular.com/blog/a-brief-guide-to-the-mojo-n-body-example">A brief guide to the Mojo n-body example</a>
                         </li>
                     </ul>
-		    <p>
-		        <a href="https://www.youtube.com/@modularinc">Re-launched the Modular YouTube channel</a>, with a focus on community events and technical content.
-		    </p>
-		    <ul>
+                    <p>
+                        <a href="https://www.youtube.com/@modularinc">Re-launched the Modular YouTube channel</a>, with a focus on community events and technical content.
+                    </p>
+                    <ul>
                         <li>
-			    <a href="https://www.youtube.com/watch?v=ypXPtOSxWzM">Introduction to Programming GPUs using Custom Operations with MAX - Part 1: Simple Custom Op</a>
-			</li>
-			<li>
-			    <a href="https://www.youtube.com/watch?v=2S6SEg0qyOw">Introduction to Programming GPUs using Custom Operations with MAX - Part 2: Vector Addition
-			    </a>
-			</li>
-			<li>
-			    <a href="https://www.youtube.com/watch?v=694uegmao1o">Introduction to Programming GPUs using Custom Operations with MAX - Part 3: The Mandelbrot Set
-			    </a>
-			</li>
-		    </ul>
+                            <a href="https://www.youtube.com/watch?v=ypXPtOSxWzM">Introduction to Programming GPUs using Custom Operations with MAX - Part 1: Simple Custom Op</a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=2S6SEg0qyOw">Introduction to Programming GPUs using Custom Operations with MAX - Part 2: Vector Addition</a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=694uegmao1o">Introduction to Programming GPUs using Custom Operations with MAX - Part 3: The Mandelbrot Set</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -126,8 +93,7 @@
                             Interactive OCR with Tesseract and Label Studio </a>
                         </li>
                         <li>
-                            <a
-                            href="https://labelstud.io/blog/using-text-prompts-for-image-annotation-with-grounding-dino-and-label-studio"/>Using
+                            <a href="https://labelstud.io/blog/using-text-prompts-for-image-annotation-with-grounding-dino-and-label-studio/">Using
                             Text Prompts for Image Annotation with Grounding DINO and Label Studio</a>
                         </li>
                         <li>
@@ -148,6 +114,7 @@
                         <li>
                             <a href="https://labelstud.io/blog/september-2023-community-news/">September 2023</a>
                         </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -166,7 +133,6 @@
                     <div>
                         <a href="https://youtu.be/grlIOVGNNVw">TVMConf 2020 - An Introduction to TVM</a>
                     </div>
-
                     <div>
                         <a
                         href="https://github.com/apache/tvm-rfcs/blob/main/rfcs/0027-formalize-documentation-organization.md">RFC
@@ -204,7 +170,7 @@
                         </a>
                     </div>
                     <div>
-                        <a href="https://www.openstack.org/use-cases/science/">
+                        <a href="https://www.openstack.org/use-cases/containers/leveraging-containers-and-openstack/">
                             Project Coordinator, The Crossroads of Cloud and HPC: OpenStack for Scientific Research
                         </a>
                     </div>
@@ -237,8 +203,5 @@
             </div>
         </div>
     </div>
-    <!-- End Document –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
-
-</html>
-
+  <!-- End Document –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+{% endblock %}
