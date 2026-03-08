@@ -1,0 +1,8 @@
+base_url = "https://www.hogepodge.com"
+title = "hogepodge"
+compile_sass = false
+generate_feeds = false
+
+[extra]
+author = "Chris Hoge"
+google_analytics_id = "G-4F5C1480ZG"

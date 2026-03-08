@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+
+  {# Intro #}
+  <div class="row">
+    <div class="twelve columns">
+      <div class="name">{{ config.extra.author }}</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="four columns">
+      <div class="name-title">{{ section.extra.intro.tagline }}</div>
+    </div>
+    <div class="eight columns">
+      <div class="job-description">
+        {{ section.extra.intro.description | markdown | safe }}
+        <ul>
+          {% for bullet in section.extra.intro.bullets %}
+          <li>{{ bullet.text | markdown | safe }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  {# Career entries #}
+  {% for entry in section.extra.work %}
+    {% if entry.new_company %}
+    <div class="row">
+      <div class="twelve columns">
+        <div class="company-title">{{ entry.company }}</div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="row">
+      <div class="four columns">
+        <div class="job-title">{{ entry.title }}</div>
+        {% if entry.date_range %}
+        <div class="date-range">{{ entry.date_range }}</div>
+        {% endif %}
+      </div>
+      <div class="eight columns">
+        <div class="job-description">
+          {{ entry.description | markdown | safe }}
+          {% if entry.bullets %}
+          <ul>
+            {% for bullet in entry.bullets %}
+            <li>{{ bullet | markdown | safe }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          {% if entry.description2 %}
+          {{ entry.description2 | markdown | safe }}
+          {% endif %}
+          {% if entry.bullets2 %}
+          <ul>
+            {% for bullet in entry.bullets2 %}
+            <li>{{ bullet | markdown | safe }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+</div>
+{% endblock %}
