@@ -3,17 +3,17 @@
 {% block content %}
 <div class="container">
 
-  {# Intro #}
-  <div class="row">
-    <div class="twelve columns">
-      <div class="name">{{ config.extra.author }}</div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="four columns">
-      <div class="name-title">{{ section.extra.intro.tagline }}</div>
-    </div>
-    <div class="eight columns">
+  <header class="site-header">
+    <h1 class="site-name">{{ config.extra.author }}</h1>
+  </header>
+
+  <main>
+
+    {# Intro #}
+    <section class="resume-entry">
+      <div>
+        <p class="tagline">{{ section.extra.intro.tagline }}</p>
+      </div>
       <div class="job-description">
         {{ section.extra.intro.description | markdown | safe }}
         <ul>
@@ -22,26 +22,22 @@
           {% endfor %}
         </ul>
       </div>
-    </div>
-  </div>
+    </section>
 
-  {# Career entries #}
-  {% for entry in section.extra.work %}
-    {% if entry.new_company %}
-    <div class="row">
-      <div class="twelve columns">
-        <div class="company-title">{{ entry.company }}</div>
-      </div>
-    </div>
-    {% endif %}
-    <div class="row">
-      <div class="four columns">
-        <div class="job-title">{{ entry.title }}</div>
-        {% if entry.date_range %}
-        <div class="date-range">{{ entry.date_range }}</div>
-        {% endif %}
-      </div>
-      <div class="eight columns">
+    {# Career entries #}
+    {% for entry in section.extra.work %}
+
+      {% if entry.new_company %}
+      <h2 class="company-name">{{ entry.company }}</h2>
+      {% endif %}
+
+      <article class="resume-entry">
+        <div>
+          <h3 class="job-title">{{ entry.title }}</h3>
+          {% if entry.date_range %}
+          <p class="date-range"><time>{{ entry.date_range }}</time></p>
+          {% endif %}
+        </div>
         <div class="job-description">
           {{ entry.description | markdown | safe }}
           {% if entry.bullets %}
@@ -62,9 +58,11 @@
           </ul>
           {% endif %}
         </div>
-      </div>
-    </div>
-  {% endfor %}
+      </article>
+
+    {% endfor %}
+
+  </main>
 
 </div>
 {% endblock %}

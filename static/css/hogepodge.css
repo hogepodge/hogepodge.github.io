@@ -1,50 +1,200 @@
-#resume-header {
-    height: 8rem;
-}
-.name {
-    font-size: 5rem;
-    height: 8rem;
+/* =================================================================
+   hogepodge.css — site styles for hogepodge.com
+   ================================================================= */
+
+
+/* -----------------------------------------------------------------
+   Design tokens
+
+   Colors, typography, and spacing are defined here so they can be
+   overridden in one place (including for dark mode below).
+   ----------------------------------------------------------------- */
+
+:root {
+  --color-text:           #222;
+  --color-text-secondary: #555;
+  --color-accent:         #1eaedb;
+  --color-border:         #ccc;
+  --color-background:     #fff;
 }
 
-.name-title {
-    font-size: 2rem;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text:           #e0e0e0;
+    --color-text-secondary: #aaa;
+    --color-accent:         #5ec9f0;
+    --color-border:         #444;
+    --color-background:     #1a1a1a;
+  }
 }
 
-.company-title {
-    border-bottom: black;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    font-size: 2.0rem;
-    margin-top: 1.5rem;
+
+/* -----------------------------------------------------------------
+   Box model
+
+   Apply border-box sizing globally so padding and borders don't
+   unexpectedly expand element widths.
+   ----------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
+
+/* -----------------------------------------------------------------
+   Base
+
+   Set font-size to 100% to respect the user's browser preference,
+   rather than forcing a fixed pixel size.
+   ----------------------------------------------------------------- */
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+/* Remove browser-default top margin on paragraphs so text in adjacent
+   grid columns starts at the same vertical position. */
+p {
+  margin-top: 0;
+}
+
+
+/* -----------------------------------------------------------------
+   Links
+   ----------------------------------------------------------------- */
+
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Show a focus ring for keyboard users only, not on mouse click */
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+
+/* -----------------------------------------------------------------
+   Page layout
+   ----------------------------------------------------------------- */
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+
+/* -----------------------------------------------------------------
+   Site header
+   ----------------------------------------------------------------- */
+
+.site-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-name {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin: 0;
+}
+
+
+/* -----------------------------------------------------------------
+   Resume entries
+
+   Each entry (intro, job role) uses a two-column grid:
+   a narrow sidebar (1/3) and a wider content area (2/3).
+   On small screens the columns collapse to a single column.
+   ----------------------------------------------------------------- */
+
+.resume-entry {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 2rem;
+  align-items: start;
+  margin-bottom: 1.0rem;
+}
+
+@media (max-width: 600px) {
+  .resume-entry {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* -----------------------------------------------------------------
+   Resume headings
+   ----------------------------------------------------------------- */
+
+/* Company or section heading, with a rule underneath */
+.company-name {
+  font-size: 1.5rem;
+  font-weight: 400;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.25rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Role or employer name within a section */
 .job-title {
-    font-size:1.75rem;    
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 0 0 0.25rem;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin: 0;
 }
 
 .date-range {
-    font-style:italic;
-    margin-bottom: 1.5rem;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  margin: 0 0 1rem;
 }
+
+
+/* -----------------------------------------------------------------
+   Job description body text
+   ----------------------------------------------------------------- */
 
 .job-description p {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
+/* Markdown sometimes wraps list item text in a <p>; display it inline
+   so the bullet doesn't push content onto a separate line. */
 .job-description li p {
-    display: inline;
-    margin: 0;
+  display: inline;
+  margin: 0;
 }
 
 .job-description li {
-    margin-left:1rem;
+  margin-left: 1rem;
 }
 
 .job-description {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
-
-a {
-    text-decoration: none;
-}
-
