@@ -111,7 +111,7 @@ a:focus-visible {
 }
 
 .site-name {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-size: clamp(2rem, 8vw, 3rem);
   font-weight: 300;
   line-height: 1.1;
   margin: 0;
@@ -147,7 +147,7 @@ a:focus-visible {
 
 /* Company or section heading, with a rule underneath */
 .company-name {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 400;
   border-bottom: 1px solid var(--color-border);
   padding-bottom: 0.25rem;
@@ -157,13 +157,13 @@ a:focus-visible {
 
 /* Role or employer name within a section */
 .job-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 400;
   margin: 0 0 0.25rem;
 }
 
 .tagline {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 400;
   color: var(--color-text-secondary);
   margin: 0;
