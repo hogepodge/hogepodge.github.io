@@ -14,7 +14,7 @@ class Lorenz {
     this.m_y[0] = 0.0;
     this.m_z[0] = 0.0;
 
-    this.m_h = 0.005;
+    this.m_h = 0.003;
 
     // Standard Lorenz parameters. Attractor ranges:
     //   x in [-20.37312,  21.529194]
@@ -109,9 +109,6 @@ class Camera {
     this._aspect = width / height;
 
     this._computeDeltas();
-
-    this._near = this._shotLen * 0.1;
-    this._far  = this._shotLen * 10.0;
   }
 
   /** Send what this camera sees to the viewport. */
@@ -160,6 +157,11 @@ class Camera {
       this._uy = this._uy * cos(this._roll) + ry * sin(this._roll);
       this._uz = this._uz * cos(this._roll) + rz * sin(this._roll);
     }
+
+    // Keep clipping planes proportional to the actual camera distance so they
+    // stay correct at any aspect ratio and as the coaster moves through the scene.
+    this._near = this._shotLen * 0.01;
+    this._far  = this._shotLen * 50.0;
   }
 }
 
@@ -173,7 +175,7 @@ function setup() {
   canvas.parent('canvas-container');
   background(0);
 
-  lorenz = new Lorenz(4000);
+  lorenz = new Lorenz(8000);
   for (let i = 0; i < 150; i++) lorenz.iterate();
   coasterCam = new Camera();
 }
@@ -192,7 +194,7 @@ function draw() {
   const vlen = dist(0, 0, 0, vx, vy, vz);
   vx /= vlen;  vy /= vlen;  vz /= vlen;
 
-  const adjust = width / 8.0;
+  const adjust = max(width, height) / 6.0;
 
   coasterCam.jump(lorenz.x(0) - adjust * vx,
                   lorenz.y(0) - adjust * vy - adjust,
