@@ -2,20 +2,159 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>chaos</title>
+  <title>Lorenz Roller Coaster</title>
   <style>
     * { margin: 0; padding: 0; }
     body { background: #000; overflow: hidden; }
     canvas { display: block; }
+
+    /* ── Controls panel ─────────────────────────────────────────────────────── */
+
+    #controls {
+      position: fixed;
+      bottom: 12px;
+      left: 16px;
+      background: rgba(20, 20, 20, 0.9);
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-family: "Lucida Grande", "Segoe UI", sans-serif;
+      font-size: 12px;
+      color: #bbb;
+      z-index: 10;
+    }
+
+    .control-row {
+      margin: 4px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .control-row label {
+      flex-shrink: 0;
+      min-width: 55px;
+      cursor: pointer;
+    }
+
+    .control-row input[type="range"] {
+      flex: 1;
+      accent-color: #1eaedb;
+      cursor: pointer;
+    }
+
+    .control-row .val {
+      min-width: 36px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #reset-btn {
+      margin-top: 8px;
+      background: #333;
+      color: #ccc;
+      border: 1px solid #555;
+      border-radius: 3px;
+      padding: 4px 12px;
+      cursor: pointer;
+      font-size: 11px;
+      font-family: inherit;
+    }
+
+    #reset-btn:hover { background: #444; }
+
+    /* ── Info overlay ───────────────────────────────────────────────────────── */
+
+    #info-panel {
+      position: fixed;
+      bottom: 12px;
+      right: 16px;
+      background: rgba(20, 20, 20, 0.92);
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-family: "Lucida Grande", "Segoe UI", sans-serif;
+      font-size: 13px;
+      color: #ccc;
+      max-width: 320px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+
+    #info-panel h3 {
+      margin: 0 0 8px;
+      font-weight: normal;
+      font-size: 14px;
+      color: #fff;
+    }
+
+    #info-panel p {
+      margin: 0 0 8px;
+      line-height: 1.5;
+    }
+
+    #info-panel a { color: #5ec9f0; }
+
+    #info-panel .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 14px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    #info-panel .close-btn:hover { color: #fff; }
+
+    /* ── Info toggle button ─────────────────────────────────────────────────── */
+
+    #info-btn {
+      position: fixed;
+      top: 12px;
+      right: 16px;
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px solid #333;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      color: #999;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      font-family: inherit;
+    }
+
+    #info-btn:hover { color: #fff; border-color: #666; }
+
+    /* ── Credits ────────────────────────────────────────────────────────────── */
+
     #credits {
       position: fixed;
       bottom: 12px;
       left: 16px;
-      font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+      font-family: "Lucida Grande", "Lucida Sans", Arial, sans-serif;
       font-size: 11px;
-      color: #777;
+      color: #555;
+      z-index: 5;
+      pointer-events: none;
     }
-    #credits a { color: #999; }
+
+    #credits a { color: #777; }
+
+    /* ── Responsive ─────────────────────────────────────────────────────────── */
+
+    @media (max-width: 600px) {
+      #controls, #info-panel { font-size: 11px; padding: 8px 12px; }
+      #credits { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -25,6 +164,54 @@
     <a href="https://github.com/hogepodge/LorenzCoaster">source</a> &mdash;
     built with <a href="https://p5js.org">p5.js</a>
   </div>
+
+  <!-- Info overlay toggle -->
+  <button id="info-btn" onclick="toggleInfo()" title="About">ℹ</button>
+
+  <div id="info-panel">
+    <button class="close-btn" onclick="toggleInfo()">✕</button>
+    <h3>About the Lorenz Attractor</h3>
+    <p>
+      This is a visualization of the Lorenz system — three coupled differential
+      equations discovered by meteorologist <a href="https://en.wikipedia.org/wiki/Edward_Lorenz">Edward Lorenz</a>
+      in 1963 while studying weather patterns.
+    </p>
+    <p>
+      The system is <em>chaotic</em>: tiny changes in starting conditions lead to
+      wildly different outcomes. Yet the trajectory never escapes — it orbits
+      around two "wings" in a pattern that looks like a butterfly.
+    </p>
+    <p>
+      Try adjusting the parameters below to see how the shape changes. The red
+      wing corresponds to positive <em>x</em> values, the blue wing to negative.
+    </p>
+  </div>
+
+  <!-- Parameter controls -->
+  <div id="controls">
+    <div class="control-row">
+      <label>Sigma: <input type="range" id="sigma" min="1" max="30" value="10" step="0.5" oninput="updateSigma(this.value)"></label>
+      <span class="val" id="sigma-val">10.0</span>
+    </div>
+    <div class="control-row">
+      <label>Rho:   <input type="range" id="rho" min="0" max="50" value="28" step="0.5" oninput="updateRho(this.value)"></label>
+      <span class="val" id="rho-val">28.0</span>
+    </div>
+    <div class="control-row">
+      <label>Beta:  <input type="range" id="beta" min="0.1" max="20" value="2.667" step="0.1" oninput="updateBeta(this.value)"></label>
+      <span class="val" id="beta-val">2.67</span>
+    </div>
+    <div class="control-row">
+      <label>Speed: <input type="range" id="speed" min="1" max="5" value="1" step="1" oninput="updateSpeed(this.value)"></label>
+      <span class="val" id="speed-val">1</span>
+    </div>
+    <div class="control-row">
+      <label>Trail: <input type="range" id="trail" min="2000" max="16000" value="8000" step="1000" oninput="updateTrailLength(this.value)"></label>
+      <span class="val" id="trail-val">8000</span>
+    </div>
+    <button id="reset-btn" onclick="resetAttractor()">Reset Trail</button>
+  </div>
+
   <script src="p5.min.js"></script>
   <script src="sketch.js"></script>
 </body>
